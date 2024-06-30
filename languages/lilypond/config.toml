@@ -1,5 +1,5 @@
 name = "LilyPond"
 grammar = "lilypond"
-path_suffixes = ["ly"]
+path_suffixes = ["ily", "ly"]
 line_comments = ["% "]
 brackets = [{ start = "{", end = "}", close = true, newline = true }]

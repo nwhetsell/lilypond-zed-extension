@@ -1,4 +1,3 @@
 name = "LilyPond Scheme"
 grammar = "lilypond_scheme"
-path_suffixes = ["scm"]
 line_comments = ["; "]
