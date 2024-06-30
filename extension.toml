@@ -4,7 +4,7 @@ version = "0.0.1"
 schema_version = 1
 authors = ["Nathan Whetsell <nathan.whetsell@gmail.com>"]
 description = "LilyPond syntax highlighting in Zed"
-repository = "https://github.com/nwhetsell/zed-lilypond-extension"
+repository = "https://github.com/nwhetsell/lilypond-zed-extension"
 
 [grammars.lilypond]
 repository = "https://github.com/nwhetsell/tree-sitter-lilypond"
