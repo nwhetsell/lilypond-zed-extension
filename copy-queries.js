@@ -9,8 +9,9 @@ execSync(`
   cd tree-sitter-lilypond &&
   git checkout ${data.grammars.lilypond.commit}
 `);
-fs.cpSync('tree-sitter-lilypond/queries/highlights-builtins.scm', 'languages/lilypond/highlights-builtins.scm');
-fs.cpSync('tree-sitter-lilypond/queries/highlights.scm', 'languages/lilypond/highlights.scm');
+for (const suffix of ['', '-builtins']) {
+  fs.cpSync(`tree-sitter-lilypond/queries/highlights${suffix}.scm`, `languages/lilypond/highlights${suffix}.scm`);
+}
 fs.rmSync('tree-sitter-lilypond', {recursive: true, force: true});
 
 execSync(`
@@ -18,7 +19,7 @@ execSync(`
   cd tree-sitter-lilypond-scheme &&
   git checkout ${data.grammars.lilypond_scheme.commit}
 `);
-fs.cpSync('tree-sitter-lilypond-scheme/queries/highlights-builtins.scm', 'languages/lilypond/highlights-scheme-builtins.scm');
-fs.cpSync('tree-sitter-lilypond-scheme/queries/highlights-lilypond-builtins.scm', 'languages/lilypond/highlights-scheme-lilypond-builtins.scm');
-fs.cpSync('tree-sitter-lilypond-scheme/queries/highlights.scm', 'languages/lilypond/highlights-scheme.scm');
+for (const suffix of ['', '-builtins', '-lilypond-builtins']) {
+  fs.cpSync(`tree-sitter-lilypond-scheme/queries/highlights${suffix}.scm`, `languages/lilypond/highlights-scheme${suffix}.scm`);
+}
 fs.rmSync('tree-sitter-lilypond-scheme', {recursive: true, force: true});
