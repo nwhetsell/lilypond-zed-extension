@@ -24,7 +24,7 @@ jobs:
         text = text.replace(/(\[lilypond\]\s*[^\n]+\nversion = ")[^"]+/gm, `$1${extension.version}`);
         fs.writeFileSync(extensionsPath, text);
         EOS
-        description = "LilyPond extension to v$(node - 'console.log(require('toml').parse(require('fs').readFileSync('../extension.toml', 'utf8')).version')"
+        description="LilyPond extension to v$(node --eval='console.log(require("toml").parse(require("fs").readFileSync("../extension.toml", "utf8")).version)')"
         git commit --all --message="Update $description"
         git push
         gh pr create --body "This PR updates the $description." --draft --fill
