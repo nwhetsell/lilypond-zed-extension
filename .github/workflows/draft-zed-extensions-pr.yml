@@ -14,14 +14,14 @@ jobs:
       run: |
         gh repo fork zed-industries/extensions --clone --default-branch-only
         cd extensions
-        git submodule update extensions/lilypond
-        git -C extensions/lilypond pull
+        git submodule update --init extensions/lilypond
+        git submodule update --remote
         node - <<'EOS'
         const fs = require('fs');
         const extension = require('toml').parse(fs.readFileSync('../extension.toml', 'utf8'));
         const extensionsPath = './extensions.toml';
         let text = fs.readFileSync(extensionsPath, 'utf8');
-        text = text.replace(/\[lilypond\]\s*[^\n]+\nversion = "/gm, `$1${extension.version}`);
+        text = text.replace(/(\[lilypond\]\s*[^\n]+\nversion = ")[^"]+/gm, `$1${extension.version}`);
         fs.writeFileSync(extensionsPath, text);
         EOS
         description = "LilyPond extension to v$(node - 'console.log(require('toml').parse(require('fs').readFileSync('../extension.toml', 'utf8')).version')"
