@@ -1,0 +1,30 @@
+name: Draft Zed extensions PR
+on:
+  workflow_dispatch:
+
+jobs:
+  draft_pr:
+    name: Draft Zed extensions PR
+    runs-on: macos-latest
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v4
+
+    - name: Create PR
+      run: |
+        gh repo fork zed-industries/extensions --clone --default-branch-only
+        cd extensions
+        git submodule update extensions/lilypond
+        git -C extensions/lilypond pull
+        node - <<'EOS'
+        const fs = require('fs');
+        const extension = require('toml').parse(fs.readFileSync('../extension.toml', 'utf8'));
+        const extensionsPath = './extensions.toml';
+        let text = fs.readFileSync(extensionsPath, 'utf8');
+        text = text.replace(/\[lilypond\]\s*[^\n]+\nversion = "/gm, `$1${extension.version}`);
+        fs.writeFileSync(extensionsPath, text);
+        EOS
+        description = "LilyPond extension to v$(node - 'console.log(require('toml').parse(require('fs').readFileSync('../extension.toml', 'utf8')).version')"
+        git commit --all --message="Update $description"
+        git push
+        gh pr create --body "This PR updates the $description." --draft --fill
