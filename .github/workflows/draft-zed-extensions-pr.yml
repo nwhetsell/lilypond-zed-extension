@@ -10,6 +10,9 @@ jobs:
     - name: Check out repository
       uses: actions/checkout@v4
 
+    - name: Install dependencies
+      run: npm install toml
+
     - name: Create PR
       run: |
         gh repo fork zed-industries/extensions --clone --default-branch-only
