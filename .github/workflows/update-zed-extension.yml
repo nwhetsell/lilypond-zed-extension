@@ -1,0 +1,46 @@
+name: Update Zed extension
+on:
+  workflow_dispatch:
+
+jobs:
+  update_extension:
+    name: Update Zed extension
+    runs-on: macos-latest
+    permissions:
+      contents: write
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v4
+
+    - name: Install dependencies
+      run: npm install toml
+
+    - name: Save extension version
+      run: echo "EXTENSION_VERSION=$(node --eval='console.log(require("toml").parse(require("fs").readFileSync("./extension.toml", "utf8")).version)')" >> "$GITHUB_ENV"
+
+    - name: Fork Zed extensions repository
+      run: gh repo fork zed-industries/extensions
+      env:
+        GH_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+
+    - name: Check out Zed extensions repository
+      uses: actions/checkout@v4
+      with:
+        repository: nwhetsell/extensions
+        token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+
+    - name: Update extension
+      run: |
+        git checkout -b lilypond-update origin/main
+        git submodule update --init extensions/lilypond
+        git submodule update --remote
+        node - <<EOS
+        const fs = require('fs');
+        const extensionsPath = './extensions.toml';
+        fs.writeFileSync(extensionsPath, fs.readFileSync(extensionsPath, 'utf8').replace(/(\\[lilypond\\]\\s*[^\\n]+\\nversion = ")[^"]+/gm, '\$1$EXTENSION_VERSION'));
+        EOS
+        description="LilyPond extension to v$EXTENSION_VERSION"
+        git config --global user.email nathan.whetsell@gmail.com
+        git config --global user.name nwhetsell
+        git commit --all --message="Update $description"
+        git push https://github.com/nwhetsell/extensions/ lilypond-update
