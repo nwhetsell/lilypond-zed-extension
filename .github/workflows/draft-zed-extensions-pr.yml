@@ -23,9 +23,7 @@ jobs:
         const fs = require('fs');
         const extension = require('toml').parse(fs.readFileSync('../extension.toml', 'utf8'));
         const extensionsPath = './extensions.toml';
-        let text = fs.readFileSync(extensionsPath, 'utf8');
-        text = text.replace(/(\[lilypond\]\s*[^\n]+\nversion = ")[^"]+/gm, `$1${extension.version}`);
-        fs.writeFileSync(extensionsPath, text);
+        fs.writeFileSync(extensionsPath, fs.readFileSync(extensionsPath, 'utf8').replace(/(\[lilypond\]\s*[^\n]+\nversion = ")[^"]+/gm, `$1${extension.version}`));
         EOS
         description="LilyPond extension to v$(node --eval='console.log(require("toml").parse(require("fs").readFileSync("../extension.toml", "utf8")).version)')"
         git commit --all --message="Update $description"
