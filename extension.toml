@@ -1,6 +1,6 @@
 id = "lilypond"
 name = "LilyPond"
-version = "0.0.4"
+version = "0.0.5"
 schema_version = 1
 authors = ["Nathan Whetsell <nathan.whetsell@gmail.com>"]
 description = "LilyPond syntax highlighting in Zed"
@@ -8,8 +8,8 @@ repository = "https://github.com/nwhetsell/lilypond-zed-extension"
 
 [grammars.lilypond]
 repository = "https://github.com/nwhetsell/tree-sitter-lilypond"
-commit = "c8eee202411d7e53971fed4344b1f15219d1e655"
+commit = "1e607230b4c57d72584822fdd1d844b9d7766b44"
 
 [grammars.lilypond_scheme]
 repository = "https://github.com/nwhetsell/tree-sitter-lilypond-scheme"
-commit = "2a7a96a0cfba8f6106df821265ae67aa5ab3ce45"
+commit = "c9c3b9e74beb05cc5296f48bd3469b2e6dbf6055"
