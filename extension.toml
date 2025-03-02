@@ -8,8 +8,8 @@ repository = "https://github.com/nwhetsell/lilypond-zed-extension"
 
 [grammars.lilypond]
 repository = "https://github.com/nwhetsell/tree-sitter-lilypond"
-commit = "d88b342d16efab6057631aa6dc95158f08c8237a"
+commit = "5e7f4dd653a0a35f6cfed28b7cc0a24272f75a60"
 
 [grammars.lilypond_scheme]
 repository = "https://github.com/nwhetsell/tree-sitter-lilypond-scheme"
-commit = "6ba44da41e2337e88c7e41b4c7ce6f5c4b9fdbe9"
+commit = "463ef13a48b88feb055980117d70df547d31cf47"
