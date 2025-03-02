@@ -1,6 +1,6 @@
 id = "lilypond"
 name = "LilyPond"
-version = "0.0.6"
+version = "0.0.7"
 schema_version = 1
 authors = ["Nathan Whetsell <nathan.whetsell@gmail.com>"]
 description = "LilyPond syntax highlighting in Zed"
