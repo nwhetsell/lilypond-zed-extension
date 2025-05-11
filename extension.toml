@@ -7,9 +7,9 @@ description = "LilyPond syntax highlighting in Zed"
 repository = "https://github.com/nwhetsell/lilypond-zed-extension"
 
 [grammars.lilypond]
-repository = "https://github.com/nwhetsell/tree-sitter-lilypond"
-commit = "5e7f4dd653a0a35f6cfed28b7cc0a24272f75a60"
+repository = "https://github.com/nwhetsell/zed-tree-sitter-lilypond"
+commit = "c8f64ae75f130225bd7cff46eb464f08e7a283e6"
 
 [grammars.lilypond_scheme]
-repository = "https://github.com/nwhetsell/tree-sitter-lilypond-scheme"
-commit = "463ef13a48b88feb055980117d70df547d31cf47"
+repository = "https://github.com/nwhetsell/zed-tree-sitter-lilypond-scheme"
+commit = "ffb662311084b86087ebb474a79b7f1f7ed2541f"
