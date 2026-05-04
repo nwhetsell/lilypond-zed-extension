@@ -12,3 +12,7 @@ word_characters = ["-"]
 [overrides.embedded_scheme_text]
 line_comments = ["; "]
 word_characters = ["-", ":", "?"]
+
+[overrides.scheme_embedded_lilypond_text]
+line_comments = ["% "]
+word_characters = ["-"]
