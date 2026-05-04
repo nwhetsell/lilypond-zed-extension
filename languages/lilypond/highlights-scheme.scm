@@ -4,7 +4,17 @@
 
 (
   (scheme_symbol) @operator
-  (#match? @operator "^([*+/=<>-]|[<>]=)$")
+  (#any-of? @operator
+    "*"
+    "+"
+    "/"
+    "="
+    "<"
+    ">"
+    "-"
+    "<="
+    ">="
+  )
 )
 
 (
@@ -20,14 +30,14 @@
 
 (scheme_keyword
   "#:" @punctuation
-  (scheme_keyword_name) @identifier
+  (scheme_keyword_name) @string.special.symbol
 )
 
-(scheme_boolean) @value.boolean
+(scheme_boolean) @boolean
 
-(scheme_number) @value.number
+(scheme_number) @number
 
-(scheme_character) @value.entity
+(scheme_character) @string.special
 
 (scheme_quote . "'" @operator)
 (scheme_quasiquote . "`" @operator)

@@ -7,7 +7,7 @@
   .
   (
     (punctuation) @operator
-    (#match? @operator "^=$")
+    (#eq? @operator "=")
   )
 )
 
@@ -16,7 +16,7 @@
   .
   (
     (punctuation) @operator
-    (#match? @operator "^=$")
+    (#eq? @operator "=")
   )
   .
   [(symbol) (string)]
@@ -24,46 +24,51 @@
 
 (chord
   .
-  "<" @bracket
-  ">" @bracket
+  "<" @punctuation.bracket
+  ">" @punctuation.bracket
   .
 )
 
 (
-  (escaped_word) @identifier.variable
-  (#not-match? @identifier.variable "^\\\\(?:include|maininput|version)$") ; This is needed for Panic Nova
+  (escaped_word) @keyword.directive
+  (#any-of? @keyword.directive
+    ; These are handled directly by LilyPond’s lexer.
+    "\\include"
+    "\\maininput"
+    "\\version"
+  )
 )
 (
-  (escaped_word) @processing
-  (#match? @processing "^\\\\(?:include|maininput|version)$") ; These are handled directly by LilyPond’s lexer.
+  (escaped_word) @constant.builtin
+  (#any-of? @constant.builtin
+    "\\breve"
+    "\\longa"
+    "\\maxima"
+  )
 )
 (
-  (escaped_word) @value.number
-  (#match? @value.number "^\\\\(?:breve|longa|maxima)$")
-)
-(
-  (escaped_word) @identifier.core.function
-  (#match? @identifier.core.function "^\\\\\\^$")
+  (escaped_word) @function.builtin
+  (#eq? @function.builtin "\\^")
 )
 
 (quoted_identifier
-  "\"" @bracket
+  "\"" @punctuation.bracket
 )
 
 (
   (symbol) @keyword
-  (#match? @keyword "^q$")
+  (#eq? @keyword "q")
 )
 
 [
   (fraction)
   (decimal_number)
   (unsigned_integer)
-] @value.number
+] @number
 
-(dynamic) @identifier.core.global
+(dynamic) @variable.builtin
 
-(instrument_string_number) @identifier.core.function
+(instrument_string_number) @function.builtin
 
 (
   (string
@@ -78,12 +83,14 @@
 
 [
   "{" "}"
-  "<<" (parallel_music_separator) ">>"
+  "<<" ">>"
   "#{" "#}"
 ] @punctuation.bracket
+
+(parallel_music_separator) @punctuation.delimiter
 
 (chord
   ">>" @invalid
 )
 
-(embedded_scheme_prefix) @processing
+(embedded_scheme_prefix) @keyword.directive
