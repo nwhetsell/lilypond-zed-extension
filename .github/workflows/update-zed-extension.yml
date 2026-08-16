@@ -39,7 +39,7 @@ jobs:
         const extensionsPath = './extensions.toml';
         fs.writeFileSync(extensionsPath, fs.readFileSync(extensionsPath, 'utf8').replace(/(\\[lilypond\\]\\s*[^\\n]+\\nversion = ")[^"]+/gm, '\$1$EXTENSION_VERSION'));
         EOS
-        description="LilyPond extension to v$EXTENSION_VERSION"
+        description="lilypond to v$EXTENSION_VERSION"
         git config --global user.email nathan.whetsell@gmail.com
         git config --global user.name nwhetsell
         git commit --all --message="Update $description"
